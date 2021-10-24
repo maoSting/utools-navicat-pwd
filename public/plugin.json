@@ -1,0 +1,12 @@
+{
+  "main": "index.html",
+  "preload": "preload.js",
+  "logo": "logo.png",
+  "features": [
+    {
+      "code": "pwd",
+      "explain": "navicat 忘记密码时，破解密码",
+      "cmds":["navicat", "password", "pwd"]
+    }
+  ]
+}
