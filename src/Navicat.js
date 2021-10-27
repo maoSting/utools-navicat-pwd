@@ -1,10 +1,9 @@
 import React from "react";
 import TextField from "@mui/material/TextField"
 import Container from "@mui/material/Container"
-import {Button, Grid} from "@mui/material"
+import {Button, Grid, Stepper, Step, StepLabel} from "@mui/material"
 import CryptoJS from "crypto-js"
 import Strings from "locutus/php/strings"
-import CssBaseline from '@mui/material/CssBaseline';
 
 
 export default class Navicat extends React.Component {
@@ -68,14 +67,28 @@ export default class Navicat extends React.Component {
         return (
             <Container maxWidth="md">
                 <TextField label="navicat密文" onChange={this.handleChange} variant="filled" fullWidth="true"/>
-                <CssBaseline />
-                <Grid container spacing={1}>
-                    <Grid item md={12}>
-                        {this.state.decodeTwelve}---
-                        <Button onClick={() => this.handleCopy(this.state.decodeTwelve)}>点击复制</Button>
+                <Grid container spacing={1} justifyContent="center" alignItems="center" style={{ minHeight: '60vh' }}>
+                    <Grid item md={3}>
+                        <Button  variant="outlined" size="large" onClick={() => this.handleCopy(this.state.decodeTwelve)}>{this.state.decodeTwelve}点击复制明文</Button>
                     </Grid>
                 </Grid>
-                <CssBaseline />
+                <Stepper activeStep={["1", "2", "3"]}>
+                    <Step key={"1"} completed={true}>
+                        <StepLabel>
+                            点击【文件】菜单 - 导出连接
+                        </StepLabel>
+                    </Step>
+                    <Step key={"2"} completed={true}>
+                        <StepLabel>
+                            选中破解密码的连接，并勾选导出密码
+                        </StepLabel>
+                    </Step>
+                    <Step key={"2"} completed={true}>
+                        <StepLabel>
+                            打开导出文件，查看xml中为Password既为密文
+                        </StepLabel>
+                    </Step>
+                </Stepper>
             </Container>
         )
     }
