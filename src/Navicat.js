@@ -1,7 +1,7 @@
 import React from "react";
 import TextField from "@mui/material/TextField"
 import Container from "@mui/material/Container"
-import {Button, Grid, Stepper, Step, StepLabel} from "@mui/material"
+import {Button, Grid, Stepper, Step, StepLabel, Link} from "@mui/material"
 import CryptoJS from "crypto-js"
 import Strings from "locutus/php/strings"
 
@@ -54,24 +54,35 @@ export default class Navicat extends React.Component {
         })
     }
 
+    // 复制数据
     handleCopy = (value) => {
-        console.log('dd')
-        console.log(value)
         if (typeof window.utools == 'object') {
             window.utools.copyText(value)
             window.utools.hideMainWindow()
         }
     }
 
+    // 打开外部链接
+    handleOpen = (url) => {
+        if (typeof window.utools == 'object') {
+            window.utools.shellOpenExternal(url)
+        }
+    }
+
     render() {
+        const decodeTwelve = this.state.decodeTwelve;
         return (
             <Container maxWidth="md">
                 <TextField label="navicat密文" onChange={this.handleChange} variant="filled" fullWidth="true"/>
                 <Grid container spacing={1} justifyContent="center" alignItems="center" style={{ minHeight: '60vh' }}>
                     <Grid item md={3}>
-                        <Button  variant="outlined" size="large" onClick={() => this.handleCopy(this.state.decodeTwelve)}>{this.state.decodeTwelve}点击复制明文</Button>
+                        <Button  variant="outlined" size="large" onClick={() => this.handleCopy(decodeTwelve)}>
+                            {decodeTwelve ? decodeTwelve + " | " : ""}
+                            点击复制明文
+                        </Button>
                     </Grid>
                 </Grid>
+                如何获取密文？<Button onClick={()=> this.handleOpen("https://github.com/maoSting/utools-navicat-pwd")}>打开主页</Button>
                 <Stepper activeStep={["1", "2", "3"]}>
                     <Step key={"1"} completed={true}>
                         <StepLabel>
