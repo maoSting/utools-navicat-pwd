@@ -2,6 +2,7 @@ const path = require("path")
 const outputPath = path.join(__dirname, 'dist')
 const CopyWebpackPlugin = require('copy-webpack-plugin')
 const {CleanWebpackPlugin} = require('clean-webpack-plugin')
+const TerserPlugin = require("terser-webpack-plugin")
 
 module.exports = {
     entry: path.join(__dirname, 'src/index.js'),
@@ -11,6 +12,7 @@ module.exports = {
     },
     plugins: [
         new CleanWebpackPlugin(),
+        new TerserPlugin({extractComments:false}),
         new CopyWebpackPlugin({patterns: [{from: 'public', to: outputPath}]})
     ],
     module: {
